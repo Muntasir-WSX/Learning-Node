@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
+import { readProduct } from "../service/service";
 
 export const producController = (req:IncomingMessage, res:ServerResponse) => {
 
@@ -9,13 +10,15 @@ export const producController = (req:IncomingMessage, res:ServerResponse) => {
         {  
 
 
-            const products = [
-                {
-                    id : 1,
-                    name : "Product 1",
-                    price : 10
-                }
-            ]
+            // const products = [
+            //     {
+            //         id : 1,
+            //         name : "Product 1",
+            //         price : 10
+            //     }
+            // ]
+            const products = readProduct();
+
 
 
 
