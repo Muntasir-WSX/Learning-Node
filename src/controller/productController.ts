@@ -11,12 +11,7 @@ export const producController = (req:IncomingMessage, res:ServerResponse) => {
     const id = urlParts && urlParts[1] === 'products' ? Number(urlParts[2]) : null; 
     // console.log("urlParts : ", urlParts);
     // console.log("id : ", id);
-
-
     // single products
-
-
-
     // Get all products
 
     if (url === "/products" && method === "GET")
@@ -55,6 +50,16 @@ const product = products.find((p: Iproduct) => p.id === id);
 console.log("product : ", product);
     }
 
+    else if (method === "POST" && url === "/products" )
+        
+    {
+        const body = '';
+        res.writeHead(201,{"content-type" : "application/json"});
+        res.end(JSON.stringify({ message: "Product created successfully",
+            //  data: product 
+            
+            }))
+    }
 
 
 };
