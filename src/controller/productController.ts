@@ -1,10 +1,23 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { readProduct } from "../service/service";
+import type { Iproduct } from "../types/product.type";
 
 export const producController = (req:IncomingMessage, res:ServerResponse) => {
 
         const url = req.url;
     const method = req.method;
+
+    const urlParts = url?.split("/")
+    const id = urlParts && urlParts[1] === 'products' ? Number(urlParts[2]) : null; 
+    // console.log("urlParts : ", urlParts);
+    // console.log("id : ", id);
+
+
+    // single products
+
+
+
+    // Get all products
 
     if (url === "/products" && method === "GET")
         {  
@@ -24,7 +37,7 @@ export const producController = (req:IncomingMessage, res:ServerResponse) => {
 
 
             res.writeHead(200,{"content-type" : "application/json"});
-            res.end(JSON.stringify({ message: "Products retrieved successfully", data: products
+            res.end(JSON.stringify({ message: "Products retrieved successfully", data: products,
             // data: [
             //     { id: 1, name: "Product 1", price: 10 },
             //     { id: 2, name: "Product 2", price: 20 },
@@ -34,5 +47,14 @@ export const producController = (req:IncomingMessage, res:ServerResponse) => {
     )
     
     }
+
+    else if (method === "GET" && id !== null) {
+
+const products = readProduct();
+const product = products.find((p: Iproduct) => p.id === id);
+console.log("product : ", product);
+    }
+
+
 
 };
