@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { readProduct } from "../service/service";
+import { insertProduct, readProduct } from "../service/service";
 import type { Iproduct } from "../types/product.type";
 import { parseBody } from "../utilitis/parseBody";
 
@@ -55,12 +55,22 @@ console.log("product : ", product);
         
     {
         const body = await parseBody(req);
+        const products = readProduct();
+
+        const newProduct = {
+            id : Date.now(),
+            ...body
+        }; console.log("newProduct : ", newProduct);
+
+        products.push(newProduct);
+        console.log("products : ", products);
+        insertProduct(products);
         console.log("body : ", body);
         res.writeHead(201,{"content-type" : "application/json"});
         res.end(JSON.stringify({ message: "Product created successfully",
             //  data: product 
             
-            }))
+        }))
     }
 
 
