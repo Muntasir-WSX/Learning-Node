@@ -18,7 +18,13 @@ export const producController = async (req:IncomingMessage, res:ServerResponse) 
 
     if (url === "/products" && method === "GET")
         {  
+try {
 
+}
+catch (error) {
+    sendResponse(res, 500, false, "Internal Server Error");
+    console.error("Error : ", error);
+}
 
             // const products = [
             //     {
@@ -86,6 +92,13 @@ else if (method === "DELETE" && id !== null) {
 
     const deletedProduct = products.splice(productIndex, 1);
     insertProduct(products);
+
+    try {
+    }
+    catch (error) {
+        sendResponse(res, 500, false, "Internal Server Error");
+        console.error("Error : ", error);
+    }
     sendResponse(res, 200, true, "Product deleted successfully", deletedProduct[0]);
     // res.end(JSON.stringify({ message: "Product deleted successfully", data: deletedProduct[0] }))
 }
