@@ -68,9 +68,30 @@ console.log("product : ", product);
         console.log("body : ", body);
         res.writeHead(201,{"content-type" : "application/json"});
         res.end(JSON.stringify({ message: "Product created successfully",
-            //  data: product 
+             data: newProduct 
             
         }))
+    }
+
+
+    else if(method === "PUT" && id !== null) {
+
+        const body = await parseBody(req);
+        const products = readProduct();
+        const productIndex = products.findIndex((p: Iproduct) => p.id === id);
+        console.log("productIndex : ", productIndex);
+ if (productIndex !== -1) {
+    res.writeHead(404,{"content-type" : "application/json"});
+    res.end(JSON.stringify({ message: "Product not found" }));
+    return;
+ }
+
+ products [productIndex] = { id: products[productIndex].id, ...body };
+ res.end(
+    JSON.stringify({ message: "Product updated successfully", data: products[productIndex] })
+ )
+
+
     }
 
 

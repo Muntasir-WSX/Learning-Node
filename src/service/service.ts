@@ -19,11 +19,3 @@ export const insertProduct = (payload : any) => {
     fs.writeFileSync(filepath, JSON.stringify(payload));
 }
 
-
-// const data = readProduct();
-// console.log("Data : ", data);
-    // const newProduct = {
-    //     id: 3,
-    //     name: "Product 3",
-    //     price: 300,
-    //     description: "Description of Product 3"
