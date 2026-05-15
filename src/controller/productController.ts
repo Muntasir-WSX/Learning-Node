@@ -90,9 +90,27 @@ console.log("product : ", product);
  res.end(
     JSON.stringify({ message: "Product updated successfully", data: products[productIndex] })
  )
+}
 
+else if (method === "DELETE" && id !== null) {
 
+    const products = readProduct();
+    const productIndex = products.findIndex((p: Iproduct) => p.id === id);
+    console.log("productIndex : ", productIndex);
+    if (productIndex === -1) {
+        res.writeHead(404,{"content-type" : "application/json"});
+        res.end(JSON.stringify({ message: "Product not found" }));
+        return;
     }
+
+    const deletedProduct = products.splice(productIndex, 1);
+    insertProduct(products);
+    res.writeHead(200,{"content-type" : "application/json"});
+    res.end(JSON.stringify({ message: "Product deleted successfully", data: deletedProduct[0] }))
+}
+
+
+
 
 
 };
